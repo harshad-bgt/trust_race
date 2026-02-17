@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trust Race - The Ultimate Blindfold Adventure!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-200px) translateX(-50px); }
+            75% { transform: translateY(-100px) translateX(100px); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 30px 0;
+            text-align: center;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .event-badge {
+            background: rgba(255, 255, 255, 0.95);
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #667eea;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: 900;
+            color: white;
+            text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .tagline {
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .college-name {
+            margin-top: 10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95em;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 60px;
+            animation: zoomIn 0.8s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            color: #667eea;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5em;
+            color: #764ba2;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .hero-description {
+            font-size: 1.2em;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        /* Event Details Box */
+        .event-details {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 3px solid #667eea;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px auto;
+            max-width: 700px;
+        }
+
+        .event-details h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .event-detail-item {
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            color: #333;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .event-detail-item strong {
+            color: #667eea;
+            min-width: 150px;
+        }
+
+        /* Fun Stats */
+        .fun-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .fun-stat {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            text-align: center;
+            transform: rotate(-2deg);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .fun-stat:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .fun-stat:hover {
+            transform: rotate(0deg) scale(1.1);
+        }
+
+        .fun-stat-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .fun-stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #feca57, #ff9ff3);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(254, 202, 87, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(254, 202, 87, 0.6);
+        }
+
+        /* Scroll Reveal Section */
+        .reveal-section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal-section.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Blindfold Ribbon Effect */
+        .blindfold-container {
+            position: relative;
+            margin: 60px 0;
+            perspective: 1000px;
+        }
+
+        .blindfold-ribbon {
+            position: relative;
+            height: 200px;
+            background: linear-gradient(135deg, #2d3436, #000);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.6s;
+        }
+
+        .blindfold-ribbon.unwrapped {
+            height: auto;
+            background: white;
+        }
+
+        .ribbon-front {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2d3436, #000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            font-size: 2em;
+            font-weight: bold;
+            transition: all 0.8s;
+            transform-origin: top;
+        }
+
+        .blindfold-ribbon.unwrapped .ribbon-front {
+            transform: rotateX(-180deg);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .ribbon-content {
+            opacity: 0;
+            padding: 50px;
+            transition: opacity 0.8s 0.4s;
+        }
+
+        .blindfold-ribbon.unwrapped .ribbon-content {
+            opacity: 1;
+        }
+
+        .click-hint {
+            font-size: 0.5em;
+            margin-top: 10px;
+            opacity: 0.8;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Section Styles */
+        .section {
+            background: white;
+            border-radius: 30px;
+            padding: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-title {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.3em;
+            color: #764ba2;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* Roles with Flip Effect */
+        .roles-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .role-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 25px;
+            color: white;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+            min-height: 350px;
+        }
+
+        .role-card:hover {
+            transform: rotateY(5deg) translateY(-10px);
+        }
+
+        .role-card:first-child {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .role-icon {
+            font-size: 5em;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        .role-title {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* Mystery Box */
+        .mystery-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 25px;
+            margin: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mystery-box::before {
+            content: '?';
+            position: absolute;
+            font-size: 20em;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+        }
+
+        .mystery-rounds {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .mystery-round {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .mystery-round:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Penalty Box with Animation */
+        .penalty-box {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            padding: 40px;
+            border-radius: 25px;
+            margin: 40px 0;
+            text-align: center;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .penalty-examples {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .penalty-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .penalty-item:hover {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        /* Rules Grid */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .rule-card {
+            background: linear-gradient(135deg, #f8f9fa, #fff);
+            border-left: 6px solid #667eea;
+            padding: 30px;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .rule-card:hover {
+            transform: translateX(10px) scale(1.02);
+            box-shadow: -10px 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .rule-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* Prizes with 3D Effect */
+        .prizes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .prize-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            border: 4px solid #e0e0e0;
+            transition: all 0.5s;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .prize-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #ffd700, #ffed4e);
+            border-radius: 25px 25px 0 0;
+        }
+
+        .prize-card:nth-child(2)::before {
+            background: linear-gradient(90deg, #c0c0c0, #e8e8e8);
+        }
+
+        .prize-card:nth-child(3)::before {
+            background: linear-gradient(90deg, #cd7f32, #e8a87c);
+        }
+
+        .prize-card:hover {
+            transform: translateY(-20px) rotateX(10deg);
+            border-color: #667eea;
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.4);
+        }
+
+        .prize-rank {
+            font-size: 5em;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .benefit-card {
+            background: linear-gradient(135deg, #f8f9fa, #fff);
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            border: 3px solid #e0e0e0;
+            transition: all 0.4s;
+        }
+
+        .benefit-card:hover {
+            border-color: #667eea;
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Contact Cards */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 80px 60px;
+            border-radius: 30px;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #feca57, #ff9ff3);
+            z-index: 9999;
+            transition: width 0.1s;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero h1 { 
+                font-size: 2.5em;
+                line-height: 1.2;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2em;
+            }
+            
+            .hero-description {
+                font-size: 1em;
+                padding: 0 10px;
+            }
+            
+            .fun-stats,
+            .roles-container,
+            .mystery-rounds,
+            .rules-grid,
+            .prizes-grid,
+            .benefits-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .penalty-examples {
+                grid-template-columns: 1fr;
+            }
+            
+            .section { 
+                padding: 40px 20px;
+            }
+            
+            .section-title { 
+                font-size: 2em;
+            }
+            
+            .section-subtitle {
+                font-size: 1.1em;
+            }
+            
+            .event-details {
+                padding: 20px;
+            }
+            
+            .event-detail-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+            
+            .event-detail-item strong {
+                min-width: auto;
+            }
+            
+            .fun-stat {
+                transform: rotate(0deg) !important;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                font-size: 1.1em;
+                width: 100%;
+            }
+            
+            .logo {
+                font-size: 2em;
+            }
+            
+            .tagline,
+            .college-name {
+                font-size: 0.9em;
+                padding: 0 10px;
+            }
+            
+            .event-badge {
+                font-size: 0.8em;
+                padding: 8px 15px;
+            }
+            
+            .mystery-box {
+                padding: 40px 20px;
+            }
+            
+            .mystery-box h2 {
+                font-size: 1.8em;
+            }
+            
+            .mystery-box p {
+                font-size: 1.1em;
+            }
+            
+            .penalty-box {
+                padding: 30px 20px;
+            }
+            
+            .penalty-box h3 {
+                font-size: 1.8em;
+            }
+            
+            .penalty-box p {
+                font-size: 1.1em;
+            }
+            
+            .role-card {
+                min-height: auto;
+                padding: 30px 20px;
+            }
+            
+            .role-icon {
+                font-size: 3.5em;
+            }
+            
+            .role-title {
+                font-size: 1.5em;
+            }
+            
+            .role-card p {
+                font-size: 1em;
+            }
+            
+            .mystery-round {
+                padding: 20px;
+            }
+            
+            .rule-card {
+                padding: 20px;
+            }
+            
+            .rule-number {
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                font-size: 1.2em;
+            }
+            
+            .rule-card h4 {
+                font-size: 1.1em;
+            }
+            
+            .prize-card {
+                padding: 30px 20px;
+            }
+            
+            .prize-rank {
+                font-size: 3.5em;
+            }
+            
+            .benefit-card {
+                padding: 25px 20px;
+            }
+            
+            .benefit-card h3 {
+                font-size: 1.3em;
+            }
+            
+            .contact-card {
+                padding: 30px 20px;
+            }
+            
+            .contact-card h3 {
+                font-size: 1.5em;
+            }
+            
+            .contact-card .contact-phone {
+                font-size: 1.2em;
+                flex-direction: column;
+            }
+            
+            .cta-section {
+                padding: 60px 30px;
+            }
+            
+            .cta-section h2 {
+                font-size: 2.2em;
+            }
+            
+            .cta-section p {
+                font-size: 1.2em;
+            }
+            
+            .blindfold-ribbon {
+                height: auto;
+                min-height: 200px;
+            }
+            
+            .ribbon-front {
+                font-size: 1.5em;
+                padding: 40px 20px;
+            }
+            
+            .ribbon-content {
+                padding: 30px 20px;
+            }
+            
+            footer p {
+                font-size: 0.9em;
+                padding: 0 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            
+            .section-title {
+                font-size: 1.7em;
+            }
+            
+            .fun-stat-icon {
+                font-size: 2.5em;
+            }
+            
+            .fun-stat-value {
+                font-size: 2em;
+            }
+            
+            .fun-stat-label {
+                font-size: 0.85em;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+            
+            .cta-section h2 {
+                font-size: 1.8em;
+            }
+            
+            .mystery-box h2 {
+                font-size: 1.5em;
+            }
+            
+            .penalty-box h3 {
+                font-size: 1.5em;
+            }
+            
+            .hero {
+                padding: 40px 15px;
+            }
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            transform: translateY(var(--scroll));
+        }
+
+        /* Floating Animation */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .float-animation {
+            animation: floatSlow 3s ease-in-out infinite;
+        }
+        
+        /* Mobile Touch Optimization */
+        @media (hover: none) and (pointer: coarse) {
+            .fun-stat:hover,
+            .role-card:hover,
+            .mystery-round:hover,
+            .penalty-item:hover,
+            .rule-card:hover,
+            .prize-card:hover,
+            .benefit-card:hover,
+            .contact-card:hover {
+                transform: none;
+            }
+            
+            .fun-stat:active {
+                transform: scale(0.95);
+            }
+            
+            .btn:active {
+                transform: scale(0.95);
+            }
+            
+            .role-card:active,
+            .benefit-card:active,
+            .contact-card:active {
+                transform: scale(0.98);
+            }
+        }
+        
+        /* Prevent horizontal scroll on mobile */
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
+        .container {
+            overflow-x: hidden;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="event-badge">
+                TECHNOTHON-2K26 | Dept. of Computer Science & Engineering (Data Science)
+            </div>
+            <div class="logo">🙈 TRUST RACE 👁️</div>
+            <div class="tagline">Where Trust Meets Adventure!</div>
+            <div class="college-name">
+                Padmabhooshan Vasantdada Patil Institute of Technology - PVPIT
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1 class="float-animation">The Ultimate<br>Blindfold Challenge!</h1>
+            <p class="hero-subtitle">One Blindfolded. One Guiding. Infinite Fun! 🎉</p>
+            <p class="hero-description">
+                Get ready for the most <strong>exciting team adventure</strong> at TECHNOTHON-2K26! 
+                One partner wears a blindfold, the other becomes their eyes. 
+                Together, you'll navigate through <strong>3 thrilling rounds</strong> of challenges, 
+                mazes, and obstacles. <strong>Trust, communicate, and WIN!</strong>
+            </p>
+
+            <div class="event-details">
+                <h3>📅 Event Details</h3>
+                <div class="event-detail-item">
+                    <strong>📆 Date:</strong>
+                    <span>18th & 19th February 2026</span>
+                </div>
+                <div class="event-detail-item">
+                    <strong>⏰ Time:</strong>
+                    <span>09:00 AM onwards</span>
+                </div>
+                <div class="event-detail-item">
+                    <strong>📍 Venue:</strong>
+                    <span>Department of CSDS, 4th Floor, PVPIT</span>
+                </div>
+                <div class="event-detail-item">
+                    <strong>💰 Registration Fee:</strong>
+                    <span>₹50 per student</span>
+                </div>
+            </div>
+
+            <div class="fun-stats">
+                <div class="fun-stat">
+                    <div class="fun-stat-icon">👥</div>
+                    <div class="fun-stat-value">2</div>
+                    <div class="fun-stat-label">Players Per Team</div>
+                </div>
+                <div class="fun-stat">
+                    <div class="fun-stat-icon">🎯</div>
+                    <div class="fun-stat-value">3</div>
+                    <div class="fun-stat-label">Exciting Rounds</div>
+                </div>
+                <div class="fun-stat">
+                    <div class="fun-stat-icon">⏱️</div>
+                    <div class="fun-stat-value">-5</div>
+                    <div class="fun-stat-label">Sec Penalty/Hit</div>
+                </div>
+                <div class="fun-stat">
+                    <div class="fun-stat-icon">🏆</div>
+                    <div class="fun-stat-value">₹6K</div>
+                    <div class="fun-stat-label">Prize Pool</div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScdqeD6aKqs5trks2uam3NgtrWug9cKUgHQQQcCa267aWAKZw/viewform" target="_blank" class="btn">
+                    🚀 Register Now!
+                </a>
+            </div>
+        </div>
+
+        <!-- How It Works with Blindfold Reveal -->
+        <div class="blindfold-container reveal-section">
+            <div class="blindfold-ribbon" id="blindfoldReveal">
+                <div class="ribbon-front">
+                    <div>
+                        <div style="font-size: 3em; margin-bottom: 20px;">🙈</div>
+                        <div>Click to Unwrap the Mystery!</div>
+                        <div class="click-hint">👆 Tap to reveal how it works</div>
+                    </div>
+                </div>
+                <div class="ribbon-content">
+                    <h2 class="section-title">🎭 How Does It Work?</h2>
+                    <p class="section-subtitle">Two Players. Two Roles. One Epic Adventure!</p>
+
+                    <div class="roles-container">
+                        <div class="role-card">
+                            <div class="role-icon">🙈</div>
+                            <div class="role-title">THE NAVIGATOR</div>
+                            <p style="font-size: 1.1em; line-height: 1.8; opacity: 0.95;">
+                                You're blindfolded for the ENTIRE race! Trust your partner completely 
+                                as you navigate mazes, avoid obstacles, and find checkpoints. 
+                                Listen carefully and feel your way to victory!
+                            </p>
+                        </div>
+
+                        <div class="role-card">
+                            <div class="role-icon">👁️</div>
+                            <div class="role-title">THE GUIDE</div>
+                            <p style="font-size: 1.1em; line-height: 1.8; opacity: 0.95;">
+                                You're the eyes! Read the map, spot obstacles, and give crystal-clear 
+                                directions to your blindfolded partner. Your words are their world. 
+                                Guide them safely and quickly to WIN!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mystery Rounds Section -->
+        <div class="section reveal-section">
+            <div class="mystery-box">
+                <div style="position: relative;">
+                    <div style="font-size: 3em; margin-bottom: 20px;">🎯</div>
+                    <h2 style="font-size: 2.5em; margin-bottom: 20px;">3 Mysterious Rounds Await!</h2>
+                    <p style="font-size: 1.3em; line-height: 1.8; opacity: 0.95; max-width: 800px; margin: 0 auto;">
+                        You'll face <strong>THREE THRILLING ROUNDS</strong> of blindfolded challenges! 
+                        Each round is different, each one harder than the last. Navigate mazes, 
+                        avoid obstacles, and trust your partner completely.
+                    </p>
+                    
+                    <div class="mystery-rounds">
+                        <div class="mystery-round">
+                            <div style="font-size: 3em; margin-bottom: 10px;">1️⃣</div>
+                            <div style="font-size: 1.2em; font-weight: bold;">ROUND ONE</div>
+                            <div style="font-size: 2em; margin: 15px 0;">❓</div>
+                            <div style="font-size: 0.9em; opacity: 0.9;">Mystery Challenge</div>
+                        </div>
+                        <div class="mystery-round">
+                            <div style="font-size: 3em; margin-bottom: 10px;">2️⃣</div>
+                            <div style="font-size: 1.2em; font-weight: bold;">ROUND TWO</div>
+                            <div style="font-size: 2em; margin: 15px 0;">❓</div>
+                            <div style="font-size: 0.9em; opacity: 0.9;">Mystery Challenge</div>
+                        </div>
+                        <div class="mystery-round">
+                            <div style="font-size: 3em; margin-bottom: 10px;">3️⃣</div>
+                            <div style="font-size: 1.2em; font-weight: bold;">ROUND THREE</div>
+                            <div style="font-size: 2em; margin: 15px 0;">❓</div>
+                            <div style="font-size: 0.9em; opacity: 0.9;">Mystery Challenge</div>
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-top: 30px; opacity: 0.9;">
+                        🤫 Details revealed at the event! Come prepared for anything!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Penalty System -->
+            <div class="penalty-box">
+                <div style="font-size: 4em; margin-bottom: 20px;">⚠️</div>
+                <h3 style="font-size: 2.5em; margin-bottom: 20px;">Penalty System Alert!</h3>
+                <p style="font-size: 1.3em; line-height: 1.8;">
+                    <strong>Every time you hit an obstacle = -5 SECONDS added to your time!</strong><br>
+                    Bumps, crashes, and border touches all count. Navigate carefully!
+                </p>
+                <div class="penalty-examples">
+                    <div class="penalty-item">
+                        <div style="font-size: 2.5em; margin-bottom: 10px;">🚧</div>
+                        <strong style="font-size: 1.2em;">Hit Border</strong><br>
+                        <span style="font-size: 1.5em;">-5 seconds</span>
+                    </div>
+                    <div class="penalty-item">
+                        <div style="font-size: 2.5em; margin-bottom: 10px;">🪑</div>
+                        <strong style="font-size: 1.2em;">Bump Obstacle</strong><br>
+                        <span style="font-size: 1.5em;">-5 seconds</span>
+                    </div>
+                    <div class="penalty-item">
+                        <div style="font-size: 2.5em; margin-bottom: 10px;">🧱</div>
+                        <strong style="font-size: 1.2em;">Touch Barrier</strong><br>
+                        <span style="font-size: 1.5em;">-5 seconds</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rules Section -->
+        <div class="section reveal-section">
+            <h2 class="section-title">📋 Game Rules</h2>
+            <p class="section-subtitle">Simple rules for maximum fun!</p>
+
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <div class="rule-number">1</div>
+                    <h4 style="font-size: 1.3em; color: #667eea; margin-bottom: 10px; font-weight: bold;">👥 Two Players Only</h4>
+                    <p style="color: #555; line-height: 1.8;">
+                        Each team must have exactly 2 members. One Navigator (blindfolded) 
+                        and one Guide (sighted). Choose your partner wisely!
+                    </p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">2</div>
+                    <h4 style="font-size: 1.3em; color: #667eea; margin-bottom: 10px; font-weight: bold;">🙈 Complete Blindfold</h4>
+                    <p style="color: #555; line-height: 1.8;">
+                        Navigator must wear the blindfold for ALL 3 rounds. No peeking, 
+                        no exceptions! Complete trust is the goal.
+                    </p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">3</div>
+                    <h4 style="font-size: 1.3em; color: #667eea; margin-bottom: 10px; font-weight: bold;">🗣️ Voice Only</h4>
+                    <p style="color: #555; line-height: 1.8;">
+                        Guide can ONLY use verbal instructions. No touching, pulling, 
+                        or pushing the Navigator. Words are your only tool!
+                    </p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">4</div>
+                    <h4 style="font-size: 1.3em; color: #667eea; margin-bottom: 10px; font-weight: bold;">⏱️ Beat The Clock</h4>
+                    <p style="color: #555; line-height: 1.8;">
+                        Each round has a time limit. Complete all checkpoints before time 
+                        runs out. Remember: penalties add to your time!
+                    </p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">5</div>
+                    <h4 style="font-size: 1.3em; color: #667eea; margin-bottom: 10px; font-weight: bold;">⚠️ Avoid Penalties</h4>
+                    <p style="color: #555; line-height: 1.8;">
+                        Every obstacle hit = -5 seconds penalty! Navigate carefully to 
+                        minimize your final time and maximize your score.
+                    </p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">6</div>
+                    <h4 style="font-size: 1.3em; color: #667eea; margin-bottom: 10px; font-weight: bold;">🏃 Judge's Decision Final</h4>
+                    <p style="color: #555; line-height: 1.8;">
+                        All decisions made by event judges are final. Play fair, have fun, 
+                        and respect the rules of the game!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prizes Section -->
+        <div class="section reveal-section">
+            <h2 class="section-title">🏆 Win Amazing Prizes!</h2>
+            <p class="section-subtitle">₹6,000 total prize pool for the top 3 teams!</p>
+
+            <div class="prizes-grid">
+                <div class="prize-card">
+                    <div class="prize-rank">🥇</div>
+                    <div style="font-size: 1.5em; color: #667eea; font-weight: bold; margin-bottom: 15px;">1st Place Winners</div>
+                    <div style="font-size: 3em; font-weight: 900; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px;">₹3,000</div>
+                    <div style="color: #888; font-size: 1em;">Champions!</div>
+                </div>
+
+                <div class="prize-card">
+                    <div class="prize-rank">🥈</div>
+                    <div style="font-size: 1.5em; color: #667eea; font-weight: bold; margin-bottom: 15px;">2nd Place Winners</div>
+                    <div style="font-size: 3em; font-weight: 900; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px;">₹2,000</div>
+                    <div style="color: #888; font-size: 1em;">Runners Up!</div>
+                </div>
+
+                <div class="prize-card">
+                    <div class="prize-rank">🥉</div>
+                    <div style="font-size: 1.5em; color: #667eea; font-weight: bold; margin-bottom: 15px;">3rd Place Winners</div>
+                    <div style="font-size: 3em; font-weight: 900; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px;">₹1,000</div>
+                    <div style="color: #888; font-size: 1em;">Great Job!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Participate -->
+        <div class="section reveal-section">
+            <h2 class="section-title">🎉 Why You Should Join!</h2>
+            <p class="section-subtitle">It's not just a game—it's an unforgettable experience!</p>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div style="font-size: 4em; margin-bottom: 20px;">🤝</div>
+                    <h3 style="font-size: 1.5em; color: #667eea; margin-bottom: 15px; font-weight: bold;">Build Trust</h3>
+                    <p style="color: #555; line-height: 1.8;">
+                        Experience what true trust feels like. Strengthen bonds with 
+                        your partner through shared adventure!
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <div style="font-size: 4em; margin-bottom: 20px;">😄</div>
+                    <h3 style="font-size: 1.5em; color: #667eea; margin-bottom: 15px; font-weight: bold;">Pure Fun</h3>
+                    <p style="color: #555; line-height: 1.8;">
+                        This isn't technical or stressful—it's just pure, hilarious, 
+                        exciting FUN! Laugh, play, and enjoy!
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <div style="font-size: 4em; margin-bottom: 20px;">🗣️</div>
+                    <h3 style="font-size: 1.5em; color: #667eea; margin-bottom: 15px; font-weight: bold;">Communication</h3>
+                    <p style="color: #555; line-height: 1.8;">
+                        Learn to communicate clearly under pressure. These skills 
+                        help in life, work, and relationships!
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <div style="font-size: 4em; margin-bottom: 20px;">🏃</div>
+                    <h3 style="font-size: 1.5em; color: #667eea; margin-bottom: 15px; font-weight: bold;">Active Fun</h3>
+                    <p style="color: #555; line-height: 1.8;">
+                        Get moving! This is a physical, active adventure that gets 
+                        you away from screens and into action.
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <div style="font-size: 4em; margin-bottom: 20px;">📸</div>
+                    <h3 style="font-size: 1.5em; color: #667eea; margin-bottom: 15px; font-weight: bold;">Epic Memories</h3>
+                    <p style="color: #555; line-height: 1.8;">
+                        Create stories you'll tell forever! These moments become 
+                        legendary memories with your friends.
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <div style="font-size: 4em; margin-bottom: 20px;">💰</div>
+                    <h3 style="font-size: 1.5em; color: #667eea; margin-bottom: 15px; font-weight: bold;">Win Cash</h3>
+                    <p style="color: #555; line-height: 1.8;">
+                        Compete for real money! ₹6,000 in prizes for top teams. 
+                        Have fun AND win big!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="section reveal-section">
+            <h2 class="section-title">📞 Contact Us</h2>
+            <p class="section-subtitle">Questions? Need help? We're here for you!</p>
+
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3 style="font-size: 1.8em; font-weight: bold; margin-bottom: 10px;">Prof. Aeman Patel</h3>
+                    <p style="font-size: 1em; opacity: 0.9; margin-bottom: 20px;">Event Co-ordinator</p>
+                    <div style="font-size: 1.5em; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span>📱</span>
+                        <span>+91 7774978686</span>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <h3 style="font-size: 1.8em; font-weight: bold; margin-bottom: 10px;">Mr. Sanket Urade</h3>
+                    <p style="font-size: 1em; opacity: 0.9; margin-bottom: 20px;">Student Co-ordinator</p>
+                    <div style="font-size: 1.5em; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span>📱</span>
+                        <span>+91 8600537497</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-grid" style="margin-top: 30px;">
+                <div class="contact-card" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                    <h3 style="font-size: 1.8em; font-weight: bold; margin-bottom: 10px;">Ms. Shreya Gole</h3>
+                    <p style="font-size: 1em; opacity: 0.9; margin-bottom: 20px;">Student Co-ordinator</p>
+                    <div style="font-size: 1.5em; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span>📱</span>
+                        <span>+91 8010543486</span>
+                    </div>
+                </div>
+
+                <div class="contact-card" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                    <h3 style="font-size: 1.8em; font-weight: bold; margin-bottom: 10px;">Prof. S. S. Waghmare</h3>
+                    <p style="font-size: 1em; opacity: 0.9; margin-bottom: 20px;">Head of Department - CSDS</p>
+                    <div style="font-size: 1.2em; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span>📧</span>
+                        <span style="font-size: 0.8em;">Contact via coordinators</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final CTA -->
+        <div class="cta-section reveal-section">
+            <div style="position: relative;">
+                <h2 style="font-size: 3.5em; margin-bottom: 20px;">Ready for the Adventure? 🚀</h2>
+                <p style="font-size: 1.5em; margin-bottom: 40px; opacity: 0.95;">
+                    Grab your partner, bring your trust, and let's race!<br>
+                    The most fun you'll have at TECHNOTHON-2K26! 🎉
+                </p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScdqeD6aKqs5trks2uam3NgtrWug9cKUgHQQQcCa267aWAKZw/viewform" target="_blank" class="btn" style="background: white; color: #667eea; font-size: 1.5em; padding: 25px 60px; position: relative;">
+                    🎯 REGISTER YOUR TEAM NOW!
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p style="font-size: 1.2em; margin-bottom: 15px;">🙈 Trust Race - Where Adventure Meets Friendship! 👁️</p>
+            <p style="margin-bottom: 15px; opacity: 0.9;">Part of <strong>TECHNOTHON-2K26</strong> - National Level Technical Symposium</p>
+            <p style="margin-bottom: 10px;">Organized by Department of Computer Science & Engineering (Data Science)</p>
+            <p style="margin-bottom: 20px;">Padmabhooshan Vasantdada Patil Institute of Technology (PVPIT)</p>
+            <p style="font-size: 0.9em; opacity: 0.8;">The Shetkari Shikshan Mandal's Group of Institutes - Bavdhan Educational Campus</p>
+            <p style="font-size: 0.9em; opacity: 0.8; margin-top: 10px;">SR NO. 33, Near Chandani Chowk, Bavdhan, Pune-411021, Maharashtra</p>
+            <p style="font-size: 0.9em; opacity: 0.8; margin-top: 15px;">📞 Contact: 8530134040 | 🌐 Website: pvpitssm.edu.in</p>
+        </footer>
+    </div>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal-section');
+        
+        const revealOnScroll = () => {
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('revealed');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Check on load
+
+        // Blindfold Ribbon Unwrap Effect
+        const blindfoldReveal = document.getElementById('blindfoldReveal');
+        let isUnwrapped = false;
+
+        blindfoldReveal.addEventListener('click', () => {
+            if (!isUnwrapped) {
+                blindfoldReveal.classList.add('unwrapped');
+                isUnwrapped = true;
+            }
+        });
+
+        // Auto-unwrap on scroll into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !isUnwrapped) {
+                    setTimeout(() => {
+                        blindfoldReveal.classList.add('unwrapped');
+                        isUnwrapped = true;
+                    }, 500);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        observer.observe(blindfoldReveal);
+
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax');
+            
+            parallaxElements.forEach(element => {
+                const speed = element.dataset.speed || 0.5;
+                element.style.setProperty('--scroll', `${scrolled * speed}px`);
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add entrance animations
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+    </script>
+</body>
+</html>
